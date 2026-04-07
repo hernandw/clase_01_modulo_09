@@ -1,0 +1,30 @@
+{
+  "name": "express-fileupload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --env-file=.env ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hernandw/clase_01_modulo_09.git"
+  },
+  "keywords": [],
+  "author": "Williams Hernandez",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hernandw/clase_01_modulo_09/issues"
+  },
+  "homepage": "https://github.com/hernandw/clase_01_modulo_09#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-fileupload": "^1.5.2"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.1",
+    "nodemon": "^3.1.14"
+  }
+}
