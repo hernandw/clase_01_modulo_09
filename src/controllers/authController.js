@@ -12,9 +12,28 @@ const appController = {
     }
   },
   carga: (req, res) => {
-    res.sendFile(path.join(__dirname, "src/views/formulario.html"));
     try {
-      res.resenFile(path.join(__dirname));
+      res.sendFile(path.join(__dirname, "src/views/formulario.html"));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  upload: (req, res) => {
+    try {
+      //verificamos que el formulario no venga vacio
+      if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send("No hay archivos para subir");
+      }
+
+      const { foto } = req.files;
+      const uploadPath = path.join(__dirname, "src/public/uploads", foto.name);
+
+      foto.mv(uploadPath, (err) => {
+        if (err) {
+          return res.status(500).send("Error Interno", err);
+        }
+        res.send("Archivo subido correctamente");
+      });
     } catch (error) {
       console.error(error);
     }
