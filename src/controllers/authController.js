@@ -13,7 +13,7 @@ const appController = {
   },
   carga: (req, res) => {
     try {
-      res.sendFile(path.join(__dirname, "src/views/formulario.html"));
+      res.sendFile(path.join(__dirname, "src/views/formularioMultiple.html"));
     } catch (error) {
       console.error(error);
     }
@@ -25,14 +25,26 @@ const appController = {
         return res.status(400).send("No hay archivos para subir");
       }
 
-      const { foto } = req.files;
-      const uploadPath = path.join(__dirname, "src/public/uploads", foto.name);
+      const { cancion } = req.files;
+      const { nombre, artista, album} = req.body
 
-      foto.mv(uploadPath, (err) => {
+      //validar que no vengan vacios
+      if (!nombre || !artista || !album) {
+        return res
+          .status(400)
+          .send("Faltan campos obligatorios: nombre, artista o album.");
+      }
+      
+      //const name = `${nombre}-${artista}-${album}${path.extname(cancion.name)}`
+      const timestamp = Date.now()
+      const name = `${timestamp}${path.extname(cancion.name)}`;
+      const uploadPath = path.join(__dirname, "src/public/uploads", name);
+
+     cancion.mv(uploadPath, (err) => {
         if (err) {
-          return res.status(500).send("Error Interno", err);
+          return res.status(500).send(err);
         }
-        res.send("Archivo subido correctamente");
+        res.send("File uploaded!");
       });
     } catch (error) {
       console.error(error);
